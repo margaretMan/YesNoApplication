@@ -75,7 +75,7 @@ namespace YesNoPuzzle
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Player/Error");
             }
 
             app.UseApplicationInsightsExceptionTelemetry();
@@ -90,7 +90,7 @@ namespace YesNoPuzzle
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Player}/{action=Index}/{id?}");
             });
         }
     }

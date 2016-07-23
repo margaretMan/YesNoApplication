@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace YesNoPuzzle.Models
@@ -16,5 +17,7 @@ namespace YesNoPuzzle.Models
         public string Text { get; set; }
 
         public int State { get; set; }//0 - no answer; 1 - yes; 2 - no; 3 - no matter;
+
+        public DateTime QuestionDate { get; set; }
     }
 }

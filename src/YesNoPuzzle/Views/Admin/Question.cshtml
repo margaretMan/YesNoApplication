@@ -1,0 +1,39 @@
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using YesNoPuzzle.Models
+@model ICollection<Game>
+@if (Model != null)
+{
+    foreach (Game g in Model)
+    {           
+            <h1>
+                @g.GameName
+            </h1>
+                <a href="/Admin/GameOver/@g.Id" class="btn btn-info" role="button">Game over</a>
+            
+        if (g.Questions != null && g.Questions.Count > 0)
+        {
+            <h3>Questions:</h3>
+            <br />
+            for (int i = 0; i < g.Questions.Count; i++)
+            {
+                <h4 class="col-lg-3">@(i + 1): @g.Questions[i].Text</h4>
+                <h5>@g.Questions[i].QuestionDate</h5>
+                <form asp-controller="Admin" method="post" display="inline">                 
+                    <a href="/Admin/AnswerYes/@g.Questions[i].Id" class="btn btn-success" role="button">Yes</a>
+                    <a href="/Admin/AnswerNo/@g.Questions[i].Id" class="btn btn-danger" role="button">No</a>
+                    <a href="/Admin/AnswerNoMatter/@g.Questions[i].Id" class="btn btn-default" role="button">No matter</a>
+                </form>
+                <hr />
+            }
+        }
+        else
+        {
+            <br />
+            <h4>No questions yet for this game.</h4>
+        }
+    }
+}
+else
+{
+    <h1>You are not logged as admin!</h1>
+}

@@ -1,0 +1,59 @@
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using YesNoPuzzle.Models
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model YesNoPuzzle.Models.GameViewModels.GameViewModel
+
+@{
+    <h2>@Model.Game.GameName</h2>
+    <h3>@Model.Game.GameCondition</h3>
+
+    <hr/>
+
+    if (Model.Questions != null && Model.Questions.Count > 0)
+    {
+        <h4>Questions:</h4>
+        <hr/>
+        foreach (var q in @Model.Questions)
+        {
+            @q.Text
+            <h5 class="col-lg-2">@q.QuestionDate</h5>
+            @if (q.State == 0)
+                {<span class="glyphicon glyphicon-hourglass col-lg-1"></span>}
+            else if (q.State == 1)
+                {<span class="glyphicon glyphicon-ok col-lg-1"></span>}
+            else if (q.State == 2)
+                {<span class="glyphicon glyphicon-remove col-lg-1"></span>}
+            else if (q.State == 3)
+                {<span class="glyphicon glyphicon-question-sign col-lg-1"></span>}
+           
+            <hr/>
+        }
+       
+    }
+    else
+    {
+        <h4>No questions yet.</h4>
+    }
+
+    @if (Model.Game.GameState == true)
+    {
+        <form asp-controller="Player" asp-action="AddNewQuestion" method="post" class="form-horizontal">
+            <div class="form-group">
+                <label> Ask:</label>
+                <input type="text" class="form-control" asp-for="@Model.Text"/><br/>
+                <input type="hidden" asp-for="@Model.GameId"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">Ask</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <h2>Game over:)</h2>
+
+    }
+
+    }

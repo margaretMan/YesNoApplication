@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model ICollection<Game>
+
+@if(Model != null){
+        @if (Model.Count == 1)
+         {<h1>There is @Model.Count game.</h1>}
+        else
+         { <h1>There are @Model.Count games.</h1>}
+    <br/>
+        foreach (var g in Model)
+        {
+            <div style="display: inline">
+                <form asp-controller="Admin" asp-action="deleteGame" method="post" display="inline">
+                    <h4 class="col-lg-4"><a href="/player/Game/@g.Id">@g.GameName</a></h4>
+                    <a href="/Admin/DeleteGame/@g.Id" class="btn btn-danger" role="button">Delete</a>
+                </form>
+                <hr/>
+            </div>
+        }
+
+}
